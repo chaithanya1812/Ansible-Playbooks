@@ -1,0 +1,32 @@
+---
+- hosts: db
+  tasks:
+    - yum:
+       pkg: httpd
+       state: present
+    - file:
+        path: /var/www/html/index.html
+        state: touch
+    - copy:
+        dest: /var/www/html/index.html
+        content: "This is db"
+    - service:
+        name: httpd
+        state: started
+
+- hosts: web
+  tasks:
+    - yum:
+       pkg: httpd
+       state: present
+    - file:
+        path: /var/www/html/index.html
+        state: touch
+    - copy:
+        dest: /var/www/html/index.html
+        content: "This is web"
+    - service:
+        name: httpd
+        state: started
+
+...
