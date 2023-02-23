@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  tasks:
+   - yum:
+      name: httpd
+      state: present
+     notify:
+       - start the httpd service
+   - get_url:
+      url: https://nicepage.com/c/food-restaurant-html-templates
+      dest: /home/ansible
+   - shell: mv food-restaurant-html-templates /var/www/html/index.html
+   - service:
+       name: httpd
+       state: started
